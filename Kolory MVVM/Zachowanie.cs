@@ -45,4 +45,43 @@ namespace Kolory_MVVM
             if (e.NewValue != null) ((Button)e.NewValue).Click += button_Click;
         }
     }
+    public static class KlawiszWyłączBehavior
+    {
+        public static Key GetKlawisz(DependencyObject d)
+        {
+            return (Key)d.GetValue(KlawiszProperty);
+        }
+        public static void SetKlawisz(DependencyObject d, Key value)
+        {
+            d.SetValue(KlawiszProperty, value);
+        }
+
+        public static readonly DependencyProperty KlawiszProperty =
+            DependencyProperty.RegisterAttached(
+                "Klawisz",
+                typeof(Key),
+                typeof(KlawiszWyłączBehavior),
+                new PropertyMetadata(Key.None, KlawiszZmieniony));
+
+        private static void KlawiszZmieniony(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            Key klawisz = (Key)e.NewValue;
+            if (d is Window)
+            {
+                (d as Window).PreviewKeyDown +=
+                    (object sender, KeyEventArgs _e) =>
+                    {
+                        if (_e.Key == klawisz) (sender as Window).Close();
+                    };
+            }
+            else
+            {
+                (d as UIElement).PreviewKeyDown +=
+                    (object sender, KeyEventArgs _e) =>
+                    {
+                        if (_e.Key == klawisz) (sender as UIElement).IsEnabled = false;
+                    };
+            }
+        }
+    }
 }

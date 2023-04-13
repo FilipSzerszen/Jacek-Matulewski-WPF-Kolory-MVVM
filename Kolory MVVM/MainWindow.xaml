@@ -7,7 +7,7 @@
         xmlns:mv="clr-namespace:Kolory_MVVM.ModelWidoku"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" local:KlawiszWyłączBehavior.Klawisz="Q">
     <Window.DataContext>
         <mv:EdycjaKoloru/>
     </Window.DataContext>
@@ -28,15 +28,18 @@
         <local:ZamknięcieOknaPoNaciśnięciuKlawisza Klawisz="Esc"/>
         <local:PrzyciskZamykającyOkno x:Name="przyciskZamykającyOkno" Przycisk="{Binding ElementName=przciskZamknij}"/>
     </i:Interaction.Behaviors>
-    <DockPanel LastChildFill="True">
+    <DockPanel LastChildFill="True" local:KlawiszWyłączBehavior.Klawisz="W">
         <Button DockPanel.Dock="Bottom" Content="Zamknij" Margin="10" Width="100" Height="30" HorizontalAlignment="Left"
                 x:Name="przciskZamknij"/>
         <Button DockPanel.Dock="Bottom" Content="Resetuj" Margin="10" Width="100" Height="30" HorizontalAlignment="Left"
-                Command="{Binding Path=Resetuj}"/>
+                Command="{Binding Path=Resetuj}" local:KlawiszWyłączBehavior.Klawisz="E"/>
         
-        <Slider x:Name="sliderB" Value="{Binding B, Mode=TwoWay, Converter={StaticResource konwersjaByteDouble}}" DockPanel.Dock="Bottom" Margin="10" Maximum="255"/>
-        <Slider x:Name="sliderG" Value="{Binding G, Mode=TwoWay, Converter={StaticResource konwersjaByteDouble}}" DockPanel.Dock="Bottom" Margin="10" Maximum="255"/>
-        <Slider x:Name="sliderR" Value="{Binding R, Mode=TwoWay, Converter={StaticResource konwersjaByteDouble}}" DockPanel.Dock="Bottom" Margin="10" Maximum="255"/>
+        <Slider x:Name="sliderB" Value="{Binding B, Mode=TwoWay, Converter={StaticResource konwersjaByteDouble}}" DockPanel.Dock="Bottom" Margin="10" Maximum="255"
+                local:KlawiszWyłączBehavior.Klawisz="B"/>
+        <Slider x:Name="sliderG" Value="{Binding G, Mode=TwoWay, Converter={StaticResource konwersjaByteDouble}}" DockPanel.Dock="Bottom" Margin="10" Maximum="255"
+                local:KlawiszWyłączBehavior.Klawisz="G"/>
+        <Slider x:Name="sliderR" Value="{Binding R, Mode=TwoWay, Converter={StaticResource konwersjaByteDouble}}" DockPanel.Dock="Bottom" Margin="10" Maximum="255"
+                local:KlawiszWyłączBehavior.Klawisz="R"/>
         <Rectangle x:Name="panel" Margin="10">
             <Rectangle.Fill>
                 <MultiBinding Mode="OneWay" Converter="{StaticResource konwersjaRGBToBrush}">
